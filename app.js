@@ -1,4 +1,6 @@
+const fs = require('fs')
 const inquirer = require('inquirer');
+// const generatePage = require('./src/page-template');
 
 const promptUser = () => {
   return inquirer.prompt ([
@@ -20,8 +22,11 @@ const promptUser = () => {
   ]);
 };
 
-const promptProject = () => {
+const promptProject = portfolioData => {
   console.log(``);
+  if (!portfolioData.projects) {
+    portfolioData.projects = [];
+  };
   return inquirer.prompt ([
     {
       type: 'input',
@@ -55,14 +60,25 @@ const promptProject = () => {
       name: 'confirmAddProject',
       message: 'Would you like to enter another project?',
       default: false
+    }  
+  ])
+  .then(projectData => {
+    portfolioData.projects.push(projectData);
+    if (projectData.confirmAddProject) {
+      return promptProject(portfolioData);
+    } else {
+      return portfolioData;
     }
-  ]);
+  })
 };
 
+
+
 promptUser()
-.then(answers => console.log(answers))
 .then(promptProject)
-.then(projectAnswers => console.log(projectAnswers));
+.then(portfolioData => {
+  console.log(portfolioData)
+})
 // const fs = require('fs');
 // const generatePage = require('./src/page-template');
 
