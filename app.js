@@ -1,65 +1,61 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generatePage = require("./src/page-template");
-const mockData = {
-  name: 'Martin Costas',
-  github: 'Devnah4',
-  projects: []
-};
-const mockProject = {
-    name: 'Lernantino',
-    github: 'lernantino',
-    confirmAbout: true,
-    about:
-      'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
-    projects: [
-      {
-        name: 'Run Buddy',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['HTML', 'CSS'],
-        link: 'https://github.com/lernantino/run-buddy',
-        feature: true,
-        confirmAddProject: true
-      },
-      {
-        name: 'Taskinator',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['JavaScript', 'HTML', 'CSS'],
-        link: 'https://github.com/lernantino/taskinator',
-        feature: true,
-        confirmAddProject: true
-      },
-      {
-        name: 'Taskmaster Pro',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
-        link: 'https://github.com/lernantino/taskmaster-pro',
-        feature: false,
-        confirmAddProject: true
-      },
-      {
-        name: 'Robot Gladiators',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
-        languages: ['JavaScript'],
-        link: 'https://github.com/lernantino/robot-gladiators',
-        feature: false,
-        confirmAddProject: false
-      }
-    ]
-  };
+// const mockData = {
+//   name: "MartinCostas",
+//   github: "Devnah4",
+//   confirmAbout: true,
+//   about:
+//     "Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.",
+//   projects: [
+//     {
+//       name: "Run Buddy",
+//       description:
+//         "Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.",
+//       languages: ["HTML", "CSS"],
+//       link: "https://github.com/lernantino/run-buddy",
+//       feature: true,
+//       confirmAddProject: true,
+//     },
+//     {
+//       name: "Taskinator",
+//       description:
+//         "Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.",
+//       languages: ["JavaScript", "HTML", "CSS"],
+//       link: "https://github.com/lernantino/taskinator",
+//       feature: true,
+//       confirmAddProject: true,
+//     },
+//     {
+//       name: "Taskmaster Pro",
+//       description:
+//         "Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.",
+//       languages: ["JavaScript", "jQuery", "CSS", "HTML", "Bootstrap"],
+//       link: "https://github.com/lernantino/taskmaster-pro",
+//       feature: false,
+//       confirmAddProject: true,
+//     },
+//     {
+//       name: "Robot Gladiators",
+//       description:
+//         "Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.",
+//       languages: ["JavaScript"],
+//       link: "https://github.com/lernantino/robot-gladiators",
+//       feature: false,
+//       confirmAddProject: false,
+//     },
+//   ],
+// };
+
 // Mock Code
-const pageHTML = generatePage(mockData, mockProject);
+// const pageHTML = generatePage(mockData);
 
 // User Info Questions
 const promptUser = () => {
   return inquirer.prompt([
     {
       type: "input",
-      name: "Name",
+      name: "name",
       message: "What is your name?",
       validate: (nameInput) => {
         if (nameInput) {
@@ -72,10 +68,10 @@ const promptUser = () => {
     },
     {
       type: "input",
-      name: "GitHub",
+      name: "gitHub",
       message: "Enter GitHub Username",
-      validate: (nameInput) => {
-        if (nameInput) {
+      validate: (githubInput) => {
+        if (githubInput) {
           return true;
         } else {
           console.log("Please Enter a Username");
@@ -93,20 +89,13 @@ const promptUser = () => {
       type: "input",
       name: "about",
       message: "Provide some info about yourself:",
-      when: ({ confirmAbout }) => {
-        if (confirmAbout) {
-          return true;
-        } else {
-          return false;
-        }
-      },
+      when: ({ confirmAbout }) => confirmAbout
     },
   ]);
 };
 
 // Project Questions
 const promptProject = (portfolioData) => {
-  console.log(``);
   if (!portfolioData.projects) {
     portfolioData.projects = [];
   }
@@ -129,8 +118,8 @@ const promptProject = (portfolioData) => {
         type: "input",
         name: "Description",
         message: "Provide a description of the project (Required)",
-        validate: (nameInput) => {
-          if (nameInput) {
+        validate: (descriptionInput) => {
+          if (descriptionInput) {
             return true;
           } else {
             console.log("Please Enter a Description for the Project");
@@ -156,8 +145,8 @@ const promptProject = (portfolioData) => {
         type: "input",
         name: "Link",
         message: "Enter the GitHub link to your project. (Required)",
-        validate: (nameInput) => {
-          if (nameInput) {
+        validate: (linkInput) => {
+          if (linkInput) {
             return true;
           } else {
             console.log("Please Enter a link to the repository");
@@ -189,13 +178,13 @@ const promptProject = (portfolioData) => {
 };
 
 // Actual Use Code
-// promptUser()
-//   .then(promptProject)
-//   .then((portfolioData) => {
-//     const pageHTML = generatePage(portfolioData);
+promptUser()
+  .then(promptProject)
+  .then((portfolioData) => {
+    const pageHTML = generatePage(portfolioData);
 
-//     // fs.writeFile("./index.html", pageHTML, (err) => {
-//     //   if (err) throw new Error(err);
-//     // });
-//     console.log(portfolioData);
-//   });
+    fs.writeFile("./index.html", pageHTML, (err) => {
+      if (err) throw new Error(err);
+    });
+    console.log(portfolioData);
+  });
