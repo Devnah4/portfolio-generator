@@ -47,7 +47,7 @@ const generatePage = require("./src/page-template");
 //   ],
 // };
 
-// Mock Code
+// // Mock Code
 // const pageHTML = generatePage(mockData);
 
 // User Info Questions
@@ -68,7 +68,7 @@ const promptUser = () => {
     },
     {
       type: "input",
-      name: "gitHub",
+      name: "github",
       message: "Enter GitHub Username",
       validate: (githubInput) => {
         if (githubInput) {
@@ -103,7 +103,7 @@ const promptProject = (portfolioData) => {
     .prompt([
       {
         type: "input",
-        name: "Name",
+        name: "name",
         message: "What is the name of your project?",
         validate: (nameInput) => {
           if (nameInput) {
@@ -116,7 +116,7 @@ const promptProject = (portfolioData) => {
       },
       {
         type: "input",
-        name: "Description",
+        name: "description",
         message: "Provide a description of the project (Required)",
         validate: (descriptionInput) => {
           if (descriptionInput) {
@@ -129,7 +129,7 @@ const promptProject = (portfolioData) => {
       },
       {
         type: "checkbox",
-        name: "Languages",
+        name: "languages",
         message: "What did you build this project with? (Check all that apply)",
         choices: [
           "JavaScript",
@@ -143,7 +143,7 @@ const promptProject = (portfolioData) => {
       },
       {
         type: "input",
-        name: "Link",
+        name: "link",
         message: "Enter the GitHub link to your project. (Required)",
         validate: (linkInput) => {
           if (linkInput) {
@@ -156,7 +156,7 @@ const promptProject = (portfolioData) => {
       },
       {
         type: "confirm",
-        name: "Feature",
+        name: "feature",
         message: "Would you like to feature this project?",
         default: false,
       },
@@ -185,6 +185,6 @@ promptUser()
 
     fs.writeFile("./index.html", pageHTML, (err) => {
       if (err) throw new Error(err);
+      console.log(portfolioData)
     });
-    console.log(portfolioData);
   });
