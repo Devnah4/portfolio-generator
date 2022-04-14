@@ -11,8 +11,7 @@ const generateAbout = (aboutText) => {
 };
 
 const generateProjects = (projectsArr) => {
-  const generateProjects = (projectsArr) => {
-    return `
+  return `
           <section class="my-3" id="portfolio">
             <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
             <div class="flex-row justify-space-between">
@@ -52,7 +51,6 @@ const generateProjects = (projectsArr) => {
             </div>
           </section>
         `;
-  };
 };
 
 module.exports = (templateData) => {
